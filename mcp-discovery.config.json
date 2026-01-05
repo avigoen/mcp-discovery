@@ -1,0 +1,23 @@
+{
+  "$schema": "./mcp-discovery.schema.json",
+  "version": "1.0",
+  "servers": [
+    {
+      "id": "weather",
+      "name": "Weather Server",
+      "description": "Get weather forecasts and alerts for US locations via NWS API",
+      "transport": {
+        "type": "stdio",
+        "command": "node",
+        "args": ["./build/examples/weather-server.js"]
+      },
+      "enabled": true,
+      "tags": ["weather", "forecast", "alerts", "nws"]
+    }
+  ],
+  "routing": {
+    "maxResults": 5,
+    "cacheTtlMs": 60000
+  }
+}
+

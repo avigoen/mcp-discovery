@@ -1,26 +1,44 @@
 {
   "name": "mcp-discovery",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "MCP discovery/router server that connects to multiple upstream MCP servers",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "type": "module",
   "bin": {
-    "mcp-discovery": "./build/index.js"
+    "mcp-discovery": "./build/bin/mcp-discovery.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts"
+    }
   },
   "scripts": {
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
+    "clean": "rm -rf build",
+    "build": "tsc && node -e \"require('fs').chmodSync('build/bin/mcp-discovery.js', '755')\"",
+    "build:test": "tsc -p tsconfig.test.json",
+    "test": "npm run build:test && node --test ./build/test/*.test.js",
+    "start": "node ./build/bin/mcp-discovery.js",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "files": [
     "build"
   ],
-  "keywords": [],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "discovery",
+    "router"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@types/node": "^25.0.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.25.1"
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "zod": "^3.24.0"
   }
 }
